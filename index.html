@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Youtube</title>
+   <style>
+      p{
+         margin:0;
+         font-family:Roboto Arial sans-serif serif;
+      }
+      body{
+         padding:60px 0px 0px 80px;
+ background-color: rgb(243, 243, 243);
+      }
+      main{
+         display :grid;
+         grid-template-columns: 1fr 1fr 1fr;
+         grid-template-rows: 1fr 1fr 1fr;
+         gap:15px;
+         padding:25px 0px 0px 20px ;
+        background-color: rgb(231, 229, 229);
+      }
+
+      nav{
+         display:flex;
+         justify-content:space-between;
+         align-items: center;
+         height:60px;
+         z-index: 100;
+         background-color: white;
+         position:fixed;
+         top:0;
+         left:0;
+         right:0;
+      }
+     nav div{
+      display:flex;
+     }
+     .left_part{
+      width:150px;
+      margin-left:10px;
+     }
+     .menu{
+      margin:0px 20px 0px 10px;
+     }
+     .left_part img{
+      height :23px;
+     }
+      .middel_part{
+         width:400px;
+         justify-content: center;
+         align-items: center;
+         margin:20px;
+      }
+      .middel_part img{
+         height:35px;
+         width:35px;
+      }
+      .search_bar{
+         flex:1;
+         height:35px;
+      }
+    
+      .middel_part input{
+         width:100%;
+         padding-left:10px;
+         border:none;
+         background-color: rgba(233, 233, 233, 0.445);
+         border-right:1px solid black;
+         min-width:50px;
+      }
+      .search{
+         background-color: rgb(240, 240, 240);
+         width:60px;
+         display:flex;
+         justify-content: center;
+         align-items: center;
+         border-top-right-radius: 100px;
+         border-bottom-right-radius:100px ;
+      }
+      .voice{
+         height:30px;
+         width:30px;
+         padding:5px;
+         display:flex;
+         justify-content: center;
+         align-items: center;
+         margin-left:5px;
+         
+         border-radius: 50%;
+         background-color: rgb(231, 233, 235);
+      }
+    .right_part{
+      display:flex;
+      align-items: center;
+      gap:25px;
+      width:200px;
+    }
+    .right_part img{
+      height:25px
+    }
+    .profile img{
+      height:35px;
+      width:35px;
+      border-radius: 50%;
+    }
+    input::placeholder{
+      font-size: 16px;
+    }
+  
+
+   
+    aside{
+      
+      position:fixed;
+      left:0;
+      top:65px;
+      bottom:0;
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      gap:7px;
+      width:80px;
+    }
+    aside>div:hover{
+      background-color:rgb(171, 176, 182);
+    }
+    aside>div {
+      height:80px;
+      display:flex;
+      width:100%;
+      padding:0;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .image_part img{
+      width:25px;
+    }
+    .label p{
+      font-size:11px;
+    }
+    .video_box{
+      display:flex;
+      flex-direction: column;
+    }
+    .video_info{
+      display:flex;
+      gap:10px;
+      align-items: flex-start;
+      margin-top:10px;
+    }
+    .video_img{
+      position: relative;
+    }
+    .video_img img{
+      width:100%;
+     
+    }
+    .video_time{
+      position:absolute;
+      bottom:10px;
+      right:5px;
+      background-color: black;
+      color:white;
+      padding: 3px 5px;
+      font-size: 13px;
+  
+    }
+    .channel_img img{
+      width:35px;
+      height:35px;
+      border-radius: 50%;
+    }
+    .info{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .rest_info{
+      display:flex;
+      flex-direction: column;
+      gap:5px;
+      font-size: 14px;
+      color:rgb(68, 67, 67);
+    }
+
+.right_part div,
+.voice,
+.search{
+   display:flex;
+   flex-direction:column;
+   justify-content: center;
+   align-items: center;
+   position:relative;
+}
+.notation{
+   white-space: nowrap;
+   background-color: rgba(96, 96, 96, 0.9);
+position:absolute;
+bottom:-55px;
+color:white;
+padding:7px 5px;
+font-size:14px;
+border-radius: 2px;
+pointer-events: none;
+}
+.notifications-shape{
+   display:flex;
+   flex-direction: column;
+   justify-content: center;
+}
+ .notifications{
+   position: relative;
+   display: flex;
+  
+    }
+   
+    .notification_number{
+      text-align:center;
+      width:15px;
+      height:15px;
+      background-color: rgb(204, 42, 42);
+      color:white;
+      border-radius: 50%;
+      position: absolute;
+      top :0px;
+      right:0px;
+      font-size:12px;
+      
+    }
+    .notation{
+      opacity:0;
+    }
+    .right_part>div:hover .notation,
+    .voice:hover .notation,
+    .search:hover .notation{
+      opacity: 1;
+    }
+  
+   @media(min-width:1100px){
+      main{
+         display :grid;
+         grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
+   }
+   footer{
+      display:flex;
+      justify-content:space-around;
+      align-items: center;
+      height: 70px;
+      opacity:0;
+      position:fixed;
+      bottom:0px;
+      left:0px;
+      right:0px;
+      background-color: white;
+   }
+   footer div
+   {
+      width:50px;
+      height:50px;
+      display:flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor:pointer;
+   }
+   footer div img{
+     width:40px;
+      height:40px;
+      object-fit: contain;
+   }
+   .add{
+      font-size: 50px;
+      background-color: rgb(232, 233, 235);
+      border-radius: 50%;
+   }
+   .iphone-header{
+      opacity:0;
+      display:flex;
+      justify-content: space-between;
+      position: fixed;
+      align-items: center;
+      top:0;
+      left:0;
+      right:0;
+      width:100%;
+      height:65px;
+      background-color: white;
+      z-index: 10;
+      padding:0 15px;
+   }
+   .iphone-header div{
+      display:flex;
+      justify-content: space-between;
+      height:50px;
+      gap:20px;
+   }
+   .left-phine-part .logo img{
+      width:130px;
+   }
+   .right-phine-part .notification_number{
+      width:20px;
+      height:20px;
+      display:flex;
+      align-items: center;
+      justify-content: center;
+   }
+   .right-phine-part  .search{
+      width:50px;
+      height:50px;
+      border-radius: 50%;
+  
+   }
+   .right-phine-part {
+      margin-right:30px;
+   }
+   @media(max-width:800px)
+   {
+      main{
+         display:grid;
+         grid-template-columns: 1fr 1fr;
+      }
+      .middel_part{
+         width:250px;
+      }
+      .left_part
+      ,.right-part{
+         width:100px;
+      }
+      .left_part  {
+         width:50px
+      }
+      nav{
+         opacity:0;
+      }
+      .iphone-header{
+         opacity:1 ;
+      }
+      aside{
+         opacity:0;
+      }
+      body{
+
+         padding-left:0;
+          padding-bottom:80px;
+          padding-top:60px;
+      }
+      footer{
+         opacity:1;
+      }
+   }
+    </style>
+
+</head>
+<body>
+   <header>
+         <nav>
+         <div class="left_part">
+            <div class="menu">
+               <img src="./assets/img/bars_labels/hamburger-menu.svg" alt="menu">
+            </div>
+            <div class="logo">
+               <img src="./assets/img/bars_labels/youtube-logo.svg" alt="Youtube logo">
+            </div>
+         </div>
+         <div class="middel_part">
+            <div class="search_bar">
+               <input type="search" placeholder="Search" >
+            </div>
+            <div class="search">
+               <img src="./assets/img/bars_labels/search.svg" alt="Search bar">
+               <p class="notation">Search</p>
+            </div>
+            <div class="voice">
+               <img src="./assets/img/bars_labels/voice-search-icon.svg" alt="voice search">
+               <p class="notation">Search with your voice</p>
+            </div>
+         </div>
+         <div class="right_part">
+            <div class="creat" >
+               
+                  <img src="./assets/img/bars_labels/upload.svg" alt="upload">
+                  <p class="notation">Creat</p>
+            </div>
+            <div class="Youtube_app">
+            
+                  <img src="./assets/img/bars_labels/youtube-apps.svg" alt="youtube apps">
+                  <p class="notation">You Tube Apps</p>
+            </div>
+            <div class="notifications">
+               
+                  <img src="./assets/img/bars_labels/notifications.svg" alt="">
+                  <p class="notification_number">
+                     3
+                  </p>
+               
+                 
+                  <p class="notation">Notifications</p>
+            </div>
+            <div class="profile">
+              
+                  <img src="./assets/img/channels-images/my-picture" alt="">
+                 
+               </div>
+          
+         </div>
+      </nav>
+         <div class="iphone-header">
+            <div class="left-phine-part">
+               <div class="logo">
+                  <img src="./assets/img/bars_labels/youtube-logo.svg" alt="Youtube logo">
+               </div>
+            </div>
+            <div class="right-phine-part" >
+               <div class="notifications">
+               
+                  <img src="./assets/img/bars_labels/notifications.svg" alt="">
+                  <p class="notification_number">
+                     3
+                  </p>
+               </div>
+               <div class="search">
+                  <img src="./assets/img/bars_labels/search.svg" alt="Search bar">
+                  <p class="notation">Search</p>
+               </div>
+            </div>
+         </div>
+   </header>
+   <aside>
+      <div class="Home">
+         <div class="image_part">
+            <img src="./assets/img/bars_labels/home.svg" alt="home"> 
+         </div>
+           <div class="label">
+            <p>Home</p>
+           </div>
+      </div>
+      <div class="Explore">
+         <div class="image_part">
+            <img src="./assets/img/bars_labels/explore.svg" alt="explore">
+         </div>
+           <div class="label">
+            <p>Explore</p>
+           </div>
+      </div>
+      <div class="Subscriptions">
+         <div class="image_part">
+            <img src="./assets/img/bars_labels/subscriptions.svg" alt="subscriptions">
+         </div>
+            <div class="label">
+            <p>Subscriptions</p>
+           </div> 
+         
+      </div> 
+      <div class="Originals">
+         <div class="image_part">
+            <img src="./assets/img/bars_labels/originals.svg" alt="Originals">
+         </div>
+            <div class="label">
+            <p>Originals</p>
+           </div> 
+        
+      </div>
+      <div class="Youtube_Music">
+         <div class="image_part">
+            <img src="./assets/img/bars_labels/youtube-music (1).svg" alt="music">
+         </div>
+            <div class="label">
+            <p>You Tube Music</p>
+           </div> 
+         
+
+      </div>
+      <div class="Library">
+         <div class="image_part">
+            <img src="./assets/img/bars_labels/library.svg" alt="Originals">
+           <div class="label">
+            <p>Library</p>
+           </div> 
+         </div>
+      </div>
+   </aside>
+   <main>
+      <div class="video_box">
+         <div class="video_img">
+            <img src="./assets/img/videos_images/thumbnail-1.webp" alt="video_image">
+            <p class="video_time">14:20</p>
+         </div>
+         <div class="video_info">
+               <div class="channel_img">
+                  <img src="./assets/img/channels-images/channel-1.jpeg" alt="channel name">
+               </div>
+               <div class="info">
+               <div class="video_name">
+                  <p>
+                    Talking Tech and AI with Google CEO Sundar Pichai!
+                  </p>
+               </div>
+               <div class="rest_info">
+                  <div class="channel_name">
+                     <p>
+                        Marques Brownlee
+                     </p>
+                  </div>
+                  <div class="views_date">
+                     3.4M views · 6 months ago
+                  </div>
+               </div>
+               
+            </div>
+            </div>
+      </div>
+        
+      
+      <div class="video_box">
+         <div class="video_img">
+            <img src="./assets/img/videos_images/thumbnail-2.webp" alt="video_image">
+            <p class="video_time">8:22</p>
+         </div>
+         <div class="video_info">
+               <div class="channel_img">
+                  <img src="./assets/img/channels-images/channel-2.jpeg" alt="channel name">
+               </div>
+               <div class="info">
+               <div class="video_name">
+                  <p>
+                     Try Not To Laugh Challenge #9
+                  </p>
+               </div>
+               <div class="rest_info">
+                  <div class="channel_name">
+                     <p>
+                    Markiplier
+                     </p>
+                  </div>
+                  <div class="views_date">
+                  19M views · 4 years ago
+                  </div>
+               </div>
+               
+            </div>
+            </div>
+      </div>
+      <div class="video_box">
+         <div class="video_img">
+            <img src="./assets/img/videos_images/thumbnail-3.webp" alt="video_image">
+            <p class="video_time">9:13</p>
+         </div>
+         <div class="video_info">
+               <div class="channel_img">
+                  <img src="./assets/img/channels-images/channel-3.jpeg" alt="channel name">
+               </div>
+               <div class="info">
+               <div class="video_name">
+                  <p>
+                
+                     Crazy Tik Toks Taken Moments Before DISASTER
+                  
+                  </p>
+               </div>
+               <div class="rest_info">
+                  <div class="channel_name">
+                     <p>
+                        
+                    SSSniperWolf
+                  
+                     </p>
+                  </div>
+                  <div class="views_date">
+                     
+                  12M views · 1 year ago
+                
+                  </div>
+               </div>
+               
+            </div>
+            </div>
+      </div>
+      <div class="video_box">
+         <div class="video_img">
+            <img src="./assets/img/videos_images/thumbnail-4.webp" alt="video_image">
+            <p class="video_time">22:09</p>
+         </div>
+         <div class="video_info">
+               <div class="channel_img">
+                  <img src="./assets/img/channels-images/channel-4.jpeg" alt="channel name">
+               </div>
+               <div class="info">
+               <div class="video_name">
+                  <p>
+                  
+                     The Simplest Math Problem No One Can Solve - Collatz Conjecture
+                  
+                  </p>
+               </div>
+               <div class="rest_info">
+                  <div class="channel_name">
+                     <p>
+                      
+                    Veritasium
+                  
+                     </p>
+                  </div>
+                  <div class="views_date">
+                     
+                  18M views · 4 months ago
+                
+                  </div>
+               </div>
+               
+            </div>
+            </div>
+      </div>
+      <div class="video_box">
+         <div class="video_img">
+            <img src="./assets/img/videos_images/thumbnail-5.webp" alt="video_image">
+            <p class="video_time">11:17</p>
+         </div>
+         <div class="video_info">
+               <div class="channel_img">
+                  <img src="./assets/img/channels-images/channel-5.jpeg" alt="channel name">
+               </div>
+               <div class="info">
+               <div class="video_name">
+                  <p>
+                   
+                     Kadane's Algorithm to Maximum Sum Subarray Problem
+                  
+                  </p>
+               </div>
+               <div class="rest_info">
+                  <div class="channel_name">
+                     <p>
+                       
+                    CS Dojo
+                  
+                     </p>
+                  </div>
+                  <div class="views_date">
+                    
+                  519K views · 5 years ago
+                
+                  </div>
+               </div>
+               
+            </div>
+            </div>
+      </div>
+      <div class="video_box">
+         <div class="video_img">
+            <img src="./assets/img/videos_images/thumbnail-6.webp" alt="video_image">
+            <p class="video_time">19:59</p>
+         </div>
+         <div class="video_info">
+               <div class="channel_img">
+                  <img src="./assets/img/channels-images/channel-6.jpeg" alt="channel name">
+               </div>
+               <div class="info">
+               <div class="video_name">
+                  <p>
+                   
+                     Anything You Can Fit In The Circle I’ll Pay For
+                  
+                  </p>
+               </div>
+               <div class="rest_info">
+                  <div class="channel_name">
+                     <p>
+                       
+                    MrBeast
+                  
+                     </p>
+                  </div>
+                  <div class="views_date">
+                     
+                  141M views · 1 year ago
+                
+                  </div>
+               </div>
+               
+            </div>
+            </div>
+      </div>
+      <div class="video_box">
+         <div class="video_img">
+            <img src="./assets/img/videos_images/thumbnail-7.webp" alt="video_image">
+            <p class="video_time">10:13</p>
+         </div>
+         <div class="video_info">
+               <div class="channel_img">
+                  <img src="./assets/img/channels-images/channel-7.jpeg" alt="channel name">
+               </div>
+               <div class="info">
+               <div class="video_name">
+                  <p>
+                 
+                     Why Planes Don't Fly Over Tibet
+                  
+                  </p>
+               </div>
+               <div class="rest_info">
+                  <div class="channel_name">
+                     <p>
+                       
+                    RealLifeLore
+                  
+                     </p>
+                  </div>
+                  <div class="views_date">
+                     
+                  6.6M views · 1 year ago
+                
+                  </div>
+               </div>
+               
+            </div>
+            </div>
+      </div>
+      <div class="video_box">
+         <div class="video_img">
+            <img src="./assets/img/videos_images/thumbnail-8.webp" alt="video_image">
+            <p class="video_time">7:12</p>
+         </div>
+         <div class="video_info">
+               <div class="channel_img">
+                  <img src="./assets/img/channels-images/channel-8.jpeg" alt="channel name">
+               </div>
+               <div class="info">
+               <div class="video_name">
+                  <p>
+                    
+                    Inside The World's Biggest Passenger Plane
+                  
+                  </p>
+               </div>
+               <div class="rest_info">
+                  <div class="channel_name">
+                     <p>
+                        
+                    Tech Vision
+                  
+                     </p>
+                  </div>
+                  <div class="views_date">
+                     
+                  3.7M views · 10 months ago
+                
+                  </div>
+               </div>
+               
+            </div>
+            </div>
+      </div>
+      <div class="video_box">
+         <div class="video_img">
+            <img src="./assets/img/videos_images/thumbnail-9.webp" alt="video_image">
+            <p class="video_time">13:17</p>
+         </div>
+         <div class="video_info">
+               <div class="channel_img">
+                  <img src="./assets/img/channels-images/channel-9.jpeg" alt="channel name">
+               </div>
+               <div class="info">
+               <div class="video_name">
+                  <p>
+                    
+                     The SECRET to Super Human STRENGTH
+                  
+                  </p>
+               </div>
+               <div class="rest_info">
+                  <div class="channel_name">
+                     <p>
+                     
+                    ThenX
+                  
+                     </p>
+                  </div>
+                  <div class="views_date">
+                    
+                  20M views · 3 year ago
+                
+                  </div>
+               </div>
+               
+            </div>
+            </div>
+      </div>
+      <div class="video_box">
+         <div class="video_img">
+            <img src="./assets/img/videos_images/thumbnail-10.webp" alt="video_image">
+            <p class="video_time">7:53</p>
+         </div>
+         <div class="video_info">
+               <div class="channel_img">
+                  <img src="./assets/img/channels-images/channel-10.jpeg" alt="channel name">
+               </div>
+               <div class="info">
+               <div class="video_name">
+                  <p>
+                   
+                     How The World's Largest Cruise Ship Makes 30,000 Meals Every Day
+                  
+                  </p>
+               </div>
+               <div class="rest_info">
+                  <div class="channel_name">
+                     <p>
+                     
+                    Business Insider
+                  
+                     </p>
+                  </div>
+                  <div class="views_date">
+                     
+                  14M views · 1 year ago
+                
+                  </div>
+               </div>
+               
+            </div>
+            </div>
+      </div>
+      <div class="video_box">
+         <div class="video_img">
+            <img src="./assets/img/videos_images/thumbnail-11.webp" alt="video_image">
+            <p class="video_time">4:10</p>
+         </div>
+         <div class="video_info">
+               <div class="channel_img">
+                  <img src="./assets/img/channels-images/channel-11.jpeg" alt="channel name">
+               </div>
+               <div class="info">
+               <div class="video_name">
+                  <p>
+
+                     Dubai's Crazy Underwater Train and Other Things #Only in Dubai
+                  
+                  </p>
+               </div>
+               <div class="rest_info">
+                  <div class="channel_name">
+                     <p>
+                     
+                    Destination Tips
+                  
+                     </p>
+                  </div>
+                  <div class="views_date">
+                    
+                  3M views · 1 year ago
+                
+                  </div>
+               </div>
+               
+            </div>
+            </div>
+      </div>
+      <div class="video_box">
+         <div class="video_img">
+            <img src="./assets/img/videos_images/thumbnail-12.webp" alt="video_image">
+            <p class="video_time">4:51</p>
+         </div>
+         <div class="video_info">
+               <div class="channel_img">
+                  <img src="./assets/img/channels-images/channel-12.jpeg" alt="channel name">
+               </div>
+               <div class="info">
+               <div class="video_name">
+                  <p>
+                   
+                     What would happen if you didn’t drink water? - Mia Nacamulli
+                  
+               </div>
+               <div class="rest_info">
+                  <div class="channel_name">
+                     <p>
+                       
+                    TED-Ed
+                  
+                     </p>
+                  </div>
+                  <div class="views_date">
+                    
+                  12M views · 5 years ago
+                
+                  </div>
+               </div>
+               
+            </div>
+            </div>
+      </div>
+   </main>
+   <footer>
+      <div class="Home">
+         <div class="image_part">
+            <img src="./assets/img/bars_labels/home.svg" alt="home"> 
+         </div>
+           <div class="label">
+            <p>Home</p>
+           </div>
+      </div>
+      
+      
+      <div class="shorts">
+              
+         <img src="./assets/img/bars_labels/shorts" alt="">
+        <p>shorts</p>
+      </div>
+      <div class="add">
+              +
+      </div>
+      <div class="Subscriptions">
+         <div class="image_part">
+            <img src="./assets/img/bars_labels/subscriptions.svg" alt="subscriptions">
+         </div>
+            <div class="label">
+            <p>Subscriptions</p>
+           </div> 
+      </div> 
+      <div class="profile">
+
+         <img src="./assets/img/channels-images/my-picture" alt="">
+        <p>You</p>
+      </div>
+   </footer>
+</body>
+</html>
